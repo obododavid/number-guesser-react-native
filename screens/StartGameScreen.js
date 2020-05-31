@@ -2,6 +2,9 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
 
 import Card from '../components/Card';
+import Colors from '../constants/colors';
+
+
 const StartGameScreen = props => {
     return (
         <View style={styles.screen}>
@@ -10,8 +13,8 @@ const StartGameScreen = props => {
                 <Text>Select a number</Text>
                 <TextInput />
                 <View style={styles.buttonContainer}>
-                    <Button title="Reset" />
-                    <Button title="Confirm" />
+                    <Button title="Reset" color={Colors.accent} />
+                    <Button title="Confirm" color={Colors.primary} />
                 </View>
             </Card>
         </View>
