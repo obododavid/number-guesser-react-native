@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Button, Text, Image } from 'react-native';
 
 import DefautStyles from '../constants/default-styles';
+import Colors from '../constants/colors';
 
 const GameOverScreen = props => {
     return (
@@ -15,8 +16,8 @@ const GameOverScreen = props => {
                     style={styles.image}
                     resizeMode="cover" />
             </View>
-            <Text style={DefautStyles.bodyText}>Number of rounds: {props.roundsNumber}</Text>
-            <Text style={DefautStyles.bodyText}>Number was : {props.userNumber}</Text>
+            <Text style={DefautStyles.bodyText}>Number of rounds: <Text style={styles.highlight}>{props.roundsNumber}</Text></Text>
+            <Text style={DefautStyles.bodyText}>Number was : <Text style={styles.highlight}>{props.userNumber}</Text></Text>
             <Button title="NEW GAME" onPress={props.onRestart} />
         </View>
     )
@@ -41,6 +42,10 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         borderRadius: 200
+    },
+    highlight: {
+        color: Colors.primary,
+        fontFamily: 'open-sans-bold'
     }
 })
 
