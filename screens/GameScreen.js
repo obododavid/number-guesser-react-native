@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 
 import DefaultStyles from '../constants/default-styles';
@@ -19,13 +19,21 @@ const generateRandomBetween = (min, max, exclude) => {
     }
 }
 
+const renderListItem = (value, numOfRound) => {
+    return (
+        <View key={value} style={styles.listItem}>
+            <Text>#{numOfRound}</Text>
+            <Text>{value}</Text>
+        </View>
+    )
+}
+
 
 const GamesScreen = props => {
-    const [currentGuess, setCurrentGuess] = useState(
-        generateRandomBetween(1, 100, props.userChoice)
-    )
-
-    const [rounds, setRounds] = useState(0);
+    const initialguess = generateRandomBetween(1, 100, props.userChoice)
+    const [currentGuess, setCurrentGuess] = useState(initialguess)
+    const [pastGuesses, setPastGuesses] = useState([initialguess]);
+    const [rounds, setRounds] = useState(0)
     const currentLow = useRef(1)
     const currentHigh = useRef(100)
     const { userChoice, onGameOver } = props;
@@ -49,12 +57,16 @@ const GamesScreen = props => {
         if (direction === 'lower') {
             currentHigh.current = currentGuess;
         } else {
-            currentLow.current = currentGuess;
+            currentLow.current = currentGuess + 1;
         }
 
         const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess)
         setCurrentGuess(nextNumber)
         setRounds(curRounds => curRounds + 1)
+        setPastGuesses([
+            nextNumber,
+            ...pastGuesses
+        ])
     }
 
     return (
@@ -68,8 +80,12 @@ const GamesScreen = props => {
                 <MainButton onPress={nextGuessHandler.bind(this, 'greater')} >
                     <Ionicons name="md-add" size={24} color="white" />
                 </MainButton>
-
             </Card>
+            <View style={styles.list}>
+                <ScrollView>
+                    {pastGuesses.map((guess, i) => renderListItem(guess, pastGuesses.length - i))}
+                </ScrollView>
+            </View>
         </View>
     )
 }
@@ -86,6 +102,19 @@ const styles = StyleSheet.create({
         marginTop: 20,
         width: 300,
         maxWidth: '80%'
+    },
+    list: {
+        width: '80%',
+        flex: 1
+    },
+    listItem: {
+        borderColor: '#ccc',
+        borderWidth: 1,
+        padding: 15,
+        marginVertical: 10,
+        backgroundColor: '#fff',
+        flexDirection: 'row',
+        justifyContent: 'space-around'
     }
 })
 
