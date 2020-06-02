@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, Alert, ScrollView, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
+import { ScreenOrientation } from 'expo-screen-orientation'
 
 import DefaultStyles from '../constants/default-styles';
 
@@ -38,6 +39,8 @@ const renderListItem = (listLength, itemData) => {
 
 
 const GamesScreen = props => {
+    // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.POTRAIT)
+
     const initialguess = generateRandomBetween(1, 100, props.userChoice)
     const [currentGuess, setCurrentGuess] = useState(initialguess)
     const [pastGuesses, setPastGuesses] = useState([initialguess.toString()]);
