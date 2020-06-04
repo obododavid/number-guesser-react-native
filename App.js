@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useState, Component } from 'react';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo'; //for loading font
 
@@ -59,3 +59,6 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+
+// also remember SafeAreaView Component
+// furthermore do not forget creating two files one for android another for ios
