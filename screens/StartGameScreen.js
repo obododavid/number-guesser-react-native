@@ -98,8 +98,10 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     inputContainer: {
-        width: 300,
+        width: '80%',
         maxWidth: '80%',
+        maxWidth: '95%',
+        minWidth: 300,
         alignItems: 'center',
 
     },
